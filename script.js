@@ -1,46 +1,67 @@
-// // var sayHelloTo = function (name) {
-// //     console.log('Привет ' + name)
-// // }
+let money, time;
+
+function start () {
+    money = +prompt("Ваш бюджет на месяц?", '');
+    time = prompt('Введите дату в фломате YYYY-MM-DD', '');
 
 
-
-
-// // // var carName = 'Ford'
-// // // var personName = 'Name'
-// // // var carYear = 2008
-// // // var personYear = 1990
-
-// // // function calculateAge (year) {
-// // //     var currentYear = 2019
-// // //     var result = currentYear - year
-// // //     return result
-// // // }
-
-// // // function checkAndLogAge (year, name, compareTo) {
-// // //     if (calculateAge(year) <  compareTo){
-// // //         console.log('Возраст ' + name + ' меньше ' + compareTo + ' лет')
-// // //     } else {
-// // //         console.log('Возраст ' + name + ' больше ' + compareTo + ' лет')
-// // //     }    
-// // // }
-
-// // // checkAndLogAge (carYear, 'машины', 8)
-// // // checkAndLogAge (personYear, 'человека', 30)
-
-
-// function User() { }
-// User.prototype = { admin: false };
-
-// let user = new User();
-
-// User.prototype = { admin: true };
-
-// alert(user.admin);
-
-let persone = {
-    name: 'Jhone',
-    age: 25,
-    isMarried: false
+    while(isNaN(money) || money == "" || money ==null){
+        money = +prompt("Ваш бюджет на месяц?", '');
+    }
 }
 
-let answer = prompt("Are you 21?", "yes");
+start();
+
+let appData = {
+    budget: money,
+    expenses: {},
+    optionalExpenses: {},
+    income: [],
+    timeData: time,
+    savings: true
+};
+
+function chooseExpenses () {
+   
+    for (let i = 0; i <2; i++){
+        let a = prompt("Введите обязательную статью расходов в этом месяце?", ''),
+        b = prompt("Во сколько обойдется?", '');
+    if((typeof(a)) === 'string' && (typeof(a)) !=null && (typeof(b)) !=null && a != '' && b != '' && a.length < 50){
+    
+        appData.expenses[a] = b;
+    } else {
+    i = i -1;
+    }
+       
+    }
+}     
+    
+chooseExpenses ();
+
+
+appData.moneyPerDay = (appData.budget /30).toFixed();
+
+alert('Ваш ежедневный бюджет ' + appData.moneyPerDay);
+
+if (appData.moneyPerDay < 100){
+    console.log("Minimal")
+} else if ( appData.moneyPerDay > 100 && appData.moneyPerDay < 2000) {
+    console.log ("Midle")
+} else if ( appData.moneyPerDay > 2000) {
+    console.log ("Hight")
+} else {
+    console.log("error")
+}
+
+
+function checkSavings (){
+    if (appData.savings == true){
+        let save =+ prompt("Какая сумма накоплений"),
+        percent =+  prompt("Под какой процент");
+
+        appData.monthInCome = save/100/12*percent;
+        alert("Доход в месяц с вашего депозита: " + appData.monthInCome)
+    }
+}
+
+checkSavings();
